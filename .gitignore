@@ -1,0 +1,7 @@
+/.idea/
+/mexico-web/node_modules
+/mexico-web/mexico-web.iml
+/mexico-api/src/main/resources/application-local.properties
+/mexico-batch/src/main/resources/application-local.properties
+/mexico-api/.mvn/
+/mexico-batch/.mvn/
