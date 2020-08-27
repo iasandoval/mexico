@@ -1,33 +1,29 @@
 package mx.com.nacho.mexico.batch.domain;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "municipios")
 public class Municipio {
 
-    private long id;
-    // Estado
-    private long estadoId;
-    // Clave del Municipio
+    // Clave del Municipio a 4 digitos
+    @Id
     private String clave;
     // Nombre del Municipio
+    @Indexed
     private String nombre;
+    // Estado
+    private Estado estado;
 
     public Municipio() {
         // Empty Constructor
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getEstadoId() {
-        return estadoId;
-    }
-
-    public void setEstadoId(long estadoId) {
-        this.estadoId = estadoId;
+    public Municipio(String clave, String nombre, Estado estado) {
+        this.clave = clave;
+        this.nombre = nombre;
+        this.estado = estado;
     }
 
     public String getClave() {
@@ -44,5 +40,22 @@ public class Municipio {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "Municipio{" +
+                "clave='" + clave + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", estado=" + estado +
+                '}';
     }
 }

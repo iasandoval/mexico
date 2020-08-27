@@ -1,5 +1,6 @@
 package mx.com.nacho.mexico.batch.listener;
 
+import mx.com.nacho.mexico.batch.domain.CLocalidad;
 import mx.com.nacho.mexico.batch.domain.Estado;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,13 +12,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EstadoJobCompletionNotificationListener extends JobExecutionListenerSupport {
-    private static final Logger log = LoggerFactory.getLogger(EstadoJobCompletionNotificationListener.class);
+public class CLocalidadNotificationListener extends JobExecutionListenerSupport {
+    private static final Logger log = LoggerFactory.getLogger(CLocalidadNotificationListener.class);
 
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public EstadoJobCompletionNotificationListener(JdbcTemplate jdbcTemplate) {
+    public CLocalidadNotificationListener(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -26,12 +27,16 @@ public class EstadoJobCompletionNotificationListener extends JobExecutionListene
         if(jobExecution.getStatus() == BatchStatus.COMPLETED) {
             log.info("!!! JOB FINISHED! Time to verify the results");
 
-            jdbcTemplate.query("SELECT clave, nombre, abreviado FROM estados",
-                    (rs, row) -> new Estado(
+            jdbcTemplate.query("SELECT mapa, cve_ent, nom_ent, cve_mun, nom_mun, cve_loc, nom_loc FROM catun_localidad",
+                    (rs, row) -> new CLocalidad(
                             rs.getString(1),
                             rs.getString(2),
-                            rs.getString(3))
-            ).forEach(estado -> log.info("Found <" + estado + "> in the database."));
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7))
+            ).forEach(localidad -> log.info("Found <" + localidad + "> in the database."));
         }
     }
 

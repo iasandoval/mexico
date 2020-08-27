@@ -11,9 +11,10 @@ public class EstadoItemProcessor implements ItemProcessor<Estado, Estado> {
     @Override
     public Estado process(final Estado estado) throws Exception {
 
-        String abrev = estado.getAbrev().replaceAll("\\.", "").toUpperCase().trim();
+        String claveEstado = String.format("%02d", estado.getClave());
+        String abrev = estado.getAbreviado().replaceAll("\\.", "").toUpperCase().trim();
 
-        final Estado estadoNuevo = new Estado(estado.getId(), estado.getClave(), estado.getNombre(), abrev);
+        final Estado estadoNuevo = new Estado(claveEstado, estado.getNombre(), abrev);
 
         log.info("Converting (" + estado + ") into (" + estadoNuevo + ")");
 

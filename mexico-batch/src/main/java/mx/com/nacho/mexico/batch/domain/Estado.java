@@ -1,32 +1,29 @@
 package mx.com.nacho.mexico.batch.domain;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "estados")
 public class Estado {
 
-    private long id;
-    // Clave del Estado
+    // Clave del Estado a 2 digitos
+    @Id
     private String clave;
     // Nombre del estado
+    @Indexed
     private String nombre;
-    // Nombre abreviado del estado
-    private String abrev;
+    // Abreviatura del estado
+    private String abreviado;
 
     public Estado() {
         // Empty Constructor
     }
 
-    public Estado(long id, String clave, String nombre, String abrev) {
-        this.id = id;
+    public Estado(String clave, String nombre, String abreviado) {
         this.clave = clave;
         this.nombre = nombre;
-        this.abrev = abrev;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        this.abreviado = abreviado;
     }
 
     public String getClave() {
@@ -45,21 +42,20 @@ public class Estado {
         this.nombre = nombre;
     }
 
-    public String getAbrev() {
-        return abrev;
+    public String getAbreviado() {
+        return abreviado;
     }
 
-    public void setAbrev(String abrev) {
-        this.abrev = abrev;
+    public void setAbreviado(String abreviado) {
+        this.abreviado = abreviado;
     }
 
     @Override
     public String toString() {
         return "Estado{" +
-                "id=" + id +
-                ", clave='" + clave + '\'' +
+                "clave='" + clave + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", abrev='" + abrev + '\'' +
+                ", abreviado='" + abreviado + '\'' +
                 '}';
     }
 }
